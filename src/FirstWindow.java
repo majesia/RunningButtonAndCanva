@@ -1,7 +1,9 @@
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
-public class FirstWindow extends JFrame {
+public class FirstWindow extends JFrame implements ActionListener {
     JButton bCanva, bRunningButton;
     public FirstWindow(){
         setSize(800,300);
@@ -14,15 +16,22 @@ public class FirstWindow extends JFrame {
         bCanva.setBackground(new Color(100,50,40));
         bCanva.setFont(new Font("Dialog",Font.HANGING_BASELINE,20));
         add(bCanva);
+        bCanva.addActionListener(this);
 
         bRunningButton = new JButton("Running button");
         bRunningButton.setBounds(400,0,400,300);
         bRunningButton.setBackground(new Color(50,100,70));
         bRunningButton.setFont(new Font("Dialog",Font.HANGING_BASELINE,20));
         add(bRunningButton);
+        bRunningButton.addActionListener(this);
 
 
 
+
+    }
+
+    @Override
+    public void actionPerformed(ActionEvent e) {
 
     }
 }
