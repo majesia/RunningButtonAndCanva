@@ -1,7 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="d80f0fae-3be4-418a-acaf-9f8648d28307" name="Changes" comment="" />
+    <list default="true" id="d80f0fae-3be4-418a-acaf-9f8648d28307" name="Changes" comment="dodanie metody ActionListener">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Canva.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Canva.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/FirstWindow.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/FirstWindow.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/RunningButton.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/RunningButton.java" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -47,7 +52,16 @@
       <updated>1670973568812</updated>
       <workItem from="1670973570634" duration="3991000" />
       <workItem from="1670978659416" duration="24000" />
+      <workItem from="1671708852193" duration="745000" />
     </task>
+    <task id="LOCAL-00001" summary="dodanie metody ActionListener">
+      <created>1671709179891</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1671709179891</updated>
+    </task>
+    <option name="localTasksCounter" value="2" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -63,5 +77,9 @@
         </entry>
       </map>
     </option>
+  </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="dodanie metody ActionListener" />
+    <option name="LAST_COMMIT_MESSAGE" value="dodanie metody ActionListener" />
   </component>
 </project>

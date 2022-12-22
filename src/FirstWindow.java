@@ -32,6 +32,29 @@ public class FirstWindow extends JFrame implements ActionListener {
 
     @Override
     public void actionPerformed(ActionEvent e) {
+        Object source = e.getSource();
+
+        if(source==bCanva){
+            SwingUtilities.invokeLater(() -> {
+
+                    Canva canva = new Canva();
+                    canva.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+                    canva.setVisible(true);
+
+            });
+
+        }
+
+        if(source==bRunningButton){
+            SwingUtilities.invokeLater(() -> {
+
+                RunningButton runningButton = new RunningButton();
+                runningButton.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+                runningButton.setVisible(true);
+
+            });
+
+        }
 
     }
 }
