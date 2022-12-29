@@ -37,7 +37,7 @@ public class FirstWindow extends JFrame implements ActionListener {
         if(source==bCanva){
             SwingUtilities.invokeLater(() -> {
 
-                    Canva canva = new Canva();
+                    Canvas canva = new Canvas();
                     canva.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
                     canva.setVisible(true);
                     dispose();
