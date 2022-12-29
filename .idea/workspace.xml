@@ -1,9 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="d80f0fae-3be4-418a-acaf-9f8648d28307" name="Changes" comment="dodanie okienek RunningButton i Canva">
+    <list default="true" id="d80f0fae-3be4-418a-acaf-9f8648d28307" name="Changes" comment="dodanie uciekającego okienka i jego funkcjonalności">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/FirstWindow.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/FirstWindow.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/RunningButton.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/RunningButton.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -53,7 +52,7 @@
       <workItem from="1670978659416" duration="24000" />
       <workItem from="1671708852193" duration="1430000" />
       <workItem from="1672066850298" duration="212000" />
-      <workItem from="1672253793931" duration="12476000" />
+      <workItem from="1672253793931" duration="13470000" />
     </task>
     <task id="LOCAL-00001" summary="dodanie metody ActionListener">
       <created>1671709179891</created>
@@ -69,7 +68,14 @@
       <option name="project" value="LOCAL" />
       <updated>1671709654348</updated>
     </task>
-    <option name="localTasksCounter" value="3" />
+    <task id="LOCAL-00003" summary="dodanie uciekającego okienka i jego funkcjonalności">
+      <created>1672274913210</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1672274913210</updated>
+    </task>
+    <option name="localTasksCounter" value="4" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -89,6 +95,7 @@
   <component name="VcsManagerConfiguration">
     <MESSAGE value="dodanie metody ActionListener" />
     <MESSAGE value="dodanie okienek RunningButton i Canva" />
-    <option name="LAST_COMMIT_MESSAGE" value="dodanie okienek RunningButton i Canva" />
+    <MESSAGE value="dodanie uciekającego okienka i jego funkcjonalności" />
+    <option name="LAST_COMMIT_MESSAGE" value="dodanie uciekającego okienka i jego funkcjonalności" />
   </component>
 </project>

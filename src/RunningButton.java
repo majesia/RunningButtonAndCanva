@@ -14,6 +14,8 @@ public class RunningButton extends JFrame implements ActionListener {
     int widthbuttons = 150, heightbuttons=100;
     int xbutton=windowWidth/2-widthbuttons/2, ybutton=windowHeight/2-heightbuttons/2;
     int lastXButton, lastYButton;
+    int xMouse =(int)MouseInfo.getPointerInfo().getLocation().getX();
+    int yMouse =(int)MouseInfo.getPointerInfo().getLocation().getY();
     RunningButton(){
         setSize(windowWidth,windowHeight);
         setTitle("Running button");
@@ -38,7 +40,7 @@ public class RunningButton extends JFrame implements ActionListener {
         bExit.addActionListener(this);
 
         lWin= new JLabel("Congratulations, You catched a button!");
-        lWin.setBounds(100,10,700,100);
+        lWin.setBounds(150,10,700,100);
         lWin.setFont(new Font("Dialog",Font.HANGING_BASELINE,28));
         lWin.setForeground(Color.MAGENTA);
         lWin.setBackground(new Color(14, 41, 24));
@@ -49,6 +51,7 @@ public class RunningButton extends JFrame implements ActionListener {
     void Start(){
 
         setTitle("Catch me if you can");
+        remove(lWin);
         button=new JButton();
         button.setBounds(xbutton,ybutton,widthbuttons,heightbuttons);
         button.setBackground(Color.CYAN);
@@ -57,7 +60,7 @@ public class RunningButton extends JFrame implements ActionListener {
 
 
     }
-    List<Integer> SetPosition(){
+    List<Integer> setPosition(){
         List<Integer> xAndy = new ArrayList<>();
         xbutton=(int)(Math.random()*(windowWidth-widthbuttons));
         ybutton=(int)(Math.random()*(windowHeight-heightbuttons));
@@ -68,25 +71,27 @@ public class RunningButton extends JFrame implements ActionListener {
         return xAndy;
     }
 
-    Boolean isButtonCatch(int xmouse, int ymouse, int xbutton, int ybutton){
-        boolean yesOrNo=false;
-        System.out.println(xmouse+" "+ymouse);
+    Boolean isButtonCatch(int xbutton, int ybutton){
+        boolean yesOrNo;
+        xMouse =(int)MouseInfo.getPointerInfo().getLocation().getX();
+        yMouse =(int)MouseInfo.getPointerInfo().getLocation().getY();
+        //System.out.println(xmouse+" "+ymouse);
 
         int minRightX = xbutton;
-        int maxRightX = xbutton +100;
+        int maxRightX = xbutton +50;
 
 
         int minRightY = ybutton;
-        int maxRightY = ybutton+100;
+        int maxRightY = ybutton+50;
         System.out.println("x:" + minRightX + " " + maxRightX);
         System.out.println("y:" + minRightY + " " + maxRightY);
-        if((minRightX<=xmouse)&&(xmouse<=maxRightX) && (minRightY<=ymouse)&&(ymouse<=maxRightY)) yesOrNo=true;
+        if((minRightX<=xMouse)&&(xMouse<=maxRightX) && (minRightY<=yMouse)&&(yMouse<=maxRightY)) yesOrNo=true;
         else yesOrNo=false;
 
         return yesOrNo;
     }
 
-    void Win(){
+    void win(){
         remove(button);
         getContentPane().setBackground(new Color(14, 41, 24));
         bStart.setText("Try again");
@@ -115,14 +120,11 @@ public class RunningButton extends JFrame implements ActionListener {
 
         if(source==button){
 
-            int xMouse =(int)MouseInfo.getPointerInfo().getLocation().getX();
-            int yMouse =(int)MouseInfo.getPointerInfo().getLocation().getY();
-
-            if(isButtonCatch(xMouse,yMouse,lastXButton,lastYButton)){
-                Win();
+            if(isButtonCatch(button.getX(),button.getY())){
+                win();
             }
             else{
-                button.setBounds(SetPosition().get(0), SetPosition().get(1), widthbuttons, heightbuttons);
+                button.setBounds(setPosition().get(0), setPosition().get(1), widthbuttons, heightbuttons);
             }
 
             lastXButton=button.getX();
