@@ -40,6 +40,7 @@ public class FirstWindow extends JFrame implements ActionListener {
                     Canva canva = new Canva();
                     canva.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
                     canva.setVisible(true);
+                    dispose();
 
             });
 
@@ -51,6 +52,7 @@ public class FirstWindow extends JFrame implements ActionListener {
                 RunningButton runningButton = new RunningButton();
                 runningButton.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
                 runningButton.setVisible(true);
+                dispose();
 
             });
 
