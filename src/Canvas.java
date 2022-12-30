@@ -1,4 +1,6 @@
 import javax.swing.*;
+import javax.swing.event.ChangeEvent;
+import javax.swing.event.ChangeListener;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -6,20 +8,19 @@ import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 
 public class Canvas extends JFrame implements ActionListener {
-    //JColorChooser colorChooser = new JColorChooser();
-    //JFrame jFrame = new JFrame();
-    JButton bChangeColor;
-    JRadioButton rbShape;
-    JButton lCurrentColor;
-    java.awt.Canvas canvas = new java.awt.Canvas();
+    JButton bChangeColor, lCurrentColor;
     JRadioButton rbCircle, rbTriangle,rbSquare;
+    int xMouse,yMouse, size;
+    JPanel  pCanva;
+    Color currentColor;
+    JSlider sSize;
     MouseListener mouseListener= new MouseListener() {
         @Override
         public void mouseClicked(MouseEvent e) {
 
             if((300<=e.getX() && e.getX()<=1200) && (0<=e.getY() && e.getY()<=800)){
 
-                drawFigure(e.getX(),e.getY(),30);
+                drawFigure(e.getX(),e.getY(),size);
 
             }
         }
@@ -34,23 +35,24 @@ public class Canvas extends JFrame implements ActionListener {
         public void mouseExited(MouseEvent e) {}
     };
 
-    Graphics g = getGraphics();
-    int xMouse;
-    int yMouse ;
+    ChangeListener changeListener = new ChangeListener() {
+        @Override
+        public void stateChanged(ChangeEvent e) {
+            Object source = e.getSource();
 
-    JPanel pSettings, pCanva;
-    Color currentColor;
-    Object shape;
+            if(source==sSize) {
+                size=sSize.getValue();
+            }
+
+        }
+    };
+
+
     Canvas(){
         setSize(1200,800);
         setTitle("Canva");
         setLayout(null);
         getContentPane().setBackground(new Color(160,200,100));
-
-        /*pSettings=new JPanel();
-        pSettings.setBounds(0,0,300,800);
-        pSettings.setBackground(Color.black);
-        add(pSettings);*/
 
         lCurrentColor = new JButton();
         lCurrentColor.setBounds(50,25,200,100);
@@ -95,6 +97,10 @@ public class Canvas extends JFrame implements ActionListener {
         group.add(rbTriangle);
 
 
+        sSize=new JSlider(0,0,50,5);
+        sSize.setBounds(50,500,200,50);
+        add(sSize);
+        sSize.addChangeListener(changeListener);
 
 
     }
@@ -108,16 +114,21 @@ public class Canvas extends JFrame implements ActionListener {
     }*/
     int number;
     Color getColor() {return currentColor;}
-    public void drawCenteredCircle(int x, int y, int r) {
+    void drawCenteredCircle(int x, int y, int r) {
         Graphics g = getGraphics();
         g.setColor(getColor());
-        g.drawOval(x,y,r,r);
+        g.fillOval(x+r/2,y+r/2,r,r);
     }
 
-    public void drawCenteredSquare(int x, int y, int r){
+    void drawCenteredSquare(int x, int y, int r){
         Graphics g = getGraphics();
         g.setColor(getColor());
-        g.drawRect(x,y,r,r);
+        g.fillRect(x,y,r,r);
+    }
+    void drawTriangle(int x,int y,int h){
+        Graphics g = getGraphics();
+        g.setColor(getColor());
+        g.fillArc(x,y,h,h,0,60 );
     }
     Color changingColor(){
         JColorChooser colorChooser = new JColorChooser();
@@ -128,7 +139,7 @@ public class Canvas extends JFrame implements ActionListener {
     void drawFigure(int x, int y, int r){
         if(number==1) drawCenteredCircle(x-r,y-r,r);
         if(number==2) drawCenteredSquare(x-r/2,y-r/2,r);
-        //if(figure==rbTriangle) number=3;
+        if(number==3) drawTriangle(x,y,r);
     }
     @Override
     public void actionPerformed(ActionEvent e) {
