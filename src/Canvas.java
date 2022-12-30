@@ -12,37 +12,26 @@ public class Canvas extends JFrame implements ActionListener {
     JRadioButton rbShape;
     JButton lCurrentColor;
     java.awt.Canvas canvas = new java.awt.Canvas();
+    JRadioButton rbCircle, rbTriangle,rbSquare;
     MouseListener mouseListener= new MouseListener() {
         @Override
         public void mouseClicked(MouseEvent e) {
-            Graphics g = getGraphics();
+
             if((300<=e.getX() && e.getX()<=1200) && (0<=e.getY() && e.getY()<=800)){
 
-                g.setColor(getColor());
-                g.drawOval(e.getX(),e.getY(),30,30);
+                drawFigure(e.getX(),e.getY(),30);
 
             }
         }
 
         @Override
-        public void mousePressed(MouseEvent e) {
-
-        }
-
+        public void mousePressed(MouseEvent e) {}
         @Override
-        public void mouseReleased(MouseEvent e) {
-
-        }
-
+        public void mouseReleased(MouseEvent e) {}
         @Override
-        public void mouseEntered(MouseEvent e) {
-
-        }
-
+        public void mouseEntered(MouseEvent e) {}
         @Override
-        public void mouseExited(MouseEvent e) {
-
-        }
+        public void mouseExited(MouseEvent e) {}
     };
 
     Graphics g = getGraphics();
@@ -51,6 +40,7 @@ public class Canvas extends JFrame implements ActionListener {
 
     JPanel pSettings, pCanva;
     Color currentColor;
+    Object shape;
     Canvas(){
         setSize(1200,800);
         setTitle("Canva");
@@ -86,6 +76,26 @@ public class Canvas extends JFrame implements ActionListener {
         //add(canvas);
         addMouseListener(mouseListener);
 
+        rbCircle=new JRadioButton("Circle");
+        rbSquare=new JRadioButton("Square");
+        rbTriangle= new JRadioButton("Triangle");
+        rbCircle.setBounds(50,300,100,50);
+        rbSquare.setBounds(50,350,100,50);
+        rbTriangle.setBounds(50,400,100,50);
+        add(rbCircle);
+        add(rbTriangle);
+        add(rbSquare);
+        rbTriangle.addActionListener(this);
+        rbCircle.addActionListener(this);
+        rbSquare.addActionListener(this);
+
+        ButtonGroup group= new ButtonGroup();
+        group.add(rbCircle);
+        group.add(rbSquare);
+        group.add(rbTriangle);
+
+
+
 
     }
 
@@ -96,18 +106,29 @@ public class Canvas extends JFrame implements ActionListener {
         g.setColor(Color.black);
         g.drawOval(xMouse,yMouse,20,30);
     }*/
-
+    int number;
     Color getColor() {return currentColor;}
-    public void drawCenteredCircle(Graphics g, int x, int y, int r) {
+    public void drawCenteredCircle(int x, int y, int r) {
+        Graphics g = getGraphics();
+        g.setColor(getColor());
+        g.drawOval(x,y,r,r);
+    }
 
-        x = x-(r/2);
-        y = y-(r/2);
-        g.fillOval(x,y,r,r);
+    public void drawCenteredSquare(int x, int y, int r){
+        Graphics g = getGraphics();
+        g.setColor(getColor());
+        g.drawRect(x,y,r,r);
     }
     Color changingColor(){
         JColorChooser colorChooser = new JColorChooser();
         currentColor = JColorChooser.showDialog(null, "Pick a color...I guess", Color.black);
         return currentColor;
+    }
+
+    void drawFigure(int x, int y, int r){
+        if(number==1) drawCenteredCircle(x-r,y-r,r);
+        if(number==2) drawCenteredSquare(x-r/2,y-r/2,r);
+        //if(figure==rbTriangle) number=3;
     }
     @Override
     public void actionPerformed(ActionEvent e) {
@@ -120,7 +141,9 @@ public class Canvas extends JFrame implements ActionListener {
             lCurrentColor.setBackground(changingColor());
         }
 
-
+        if(source==rbCircle) number=1;
+        if(source==rbSquare) number=2;
+        if(source==rbTriangle) number=3;
 
     }
 
