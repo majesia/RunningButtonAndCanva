@@ -8,20 +8,17 @@ import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 
 public class Canvas extends JFrame implements ActionListener {
-    JButton bChangeColor, lCurrentColor;
+    JButton bChangeColor, lCurrentColor, bClear, bExit;
     JRadioButton rbCircle, rbTriangle,rbSquare;
-    int xMouse,yMouse, size;
+    int xMouse,yMouse, size, number;
     JPanel  pCanva;
     Color currentColor;
     JSlider sSize;
     MouseListener mouseListener= new MouseListener() {
         @Override
         public void mouseClicked(MouseEvent e) {
-
             if((300<=e.getX() && e.getX()<=1200) && (0<=e.getY() && e.getY()<=800)){
-
                 drawFigure(e.getX(),e.getY(),size);
-
             }
         }
 
@@ -83,36 +80,37 @@ public class Canvas extends JFrame implements ActionListener {
         rbTriangle= new JRadioButton("Triangle");
         rbCircle.setBounds(50,300,100,50);
         rbSquare.setBounds(50,350,100,50);
-        rbTriangle.setBounds(50,400,100,50);
+        //rbTriangle.setBounds(50,400,100,50);
         add(rbCircle);
-        add(rbTriangle);
+        //add(rbTriangle);
         add(rbSquare);
-        rbTriangle.addActionListener(this);
+        //rbTriangle.addActionListener(this);
         rbCircle.addActionListener(this);
         rbSquare.addActionListener(this);
 
         ButtonGroup group= new ButtonGroup();
         group.add(rbCircle);
         group.add(rbSquare);
-        group.add(rbTriangle);
+        //group.add(rbTriangle);
 
 
         sSize=new JSlider(0,0,50,5);
-        sSize.setBounds(50,500,200,50);
+        sSize.setBounds(50,450,200,50);
         add(sSize);
         sSize.addChangeListener(changeListener);
 
+        bClear=new JButton("Clear the canva");
+        bClear.setBounds(50,550,200,100);
+        bClear.addActionListener(this);
+        add(bClear);
+
+        bExit=new JButton("Exit");
+        bExit.setBounds(50,750,200,70);
+        bExit.addActionListener(this);
+        add(bExit);
 
     }
 
-    /*void paintCircle(Graphics g,Color color){
-
-
-
-        g.setColor(Color.black);
-        g.drawOval(xMouse,yMouse,20,30);
-    }*/
-    int number;
     Color getColor() {return currentColor;}
     void drawCenteredCircle(int x, int y, int r) {
         Graphics g = getGraphics();
@@ -155,6 +153,19 @@ public class Canvas extends JFrame implements ActionListener {
         if(source==rbCircle) number=1;
         if(source==rbSquare) number=2;
         if(source==rbTriangle) number=3;
+
+        if(source==bClear){
+            pCanva.getGraphics().clearRect(0,0,900,800);
+            pCanva.setBackground(Color.white);
+        }
+
+        if(source==bExit){
+            dispose();
+            FirstWindow window = new FirstWindow();
+            window.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+            window.setVisible(true);
+
+        }
 
     }
 
