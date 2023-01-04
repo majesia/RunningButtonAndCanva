@@ -2,18 +2,16 @@ import javax.swing.*;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.awt.event.MouseEvent;
-import java.awt.event.MouseListener;
+import java.awt.event.*;
 
-public class Canvas extends JFrame implements ActionListener {
+public class Canvas extends JFrame implements ActionListener, KeyListener {
     JButton bChangeColor, lCurrentColor, bClear, bExit;
-    JRadioButton rbCircle,rbSquare;
+    JRadioButton rbFill,rbEmpty;
     int xMouse,yMouse, size, number;
     JPanel  pCanva, pButtons;
     Color currentColor;
     JSlider sSize;
+    char figure = 'c';
 
     MouseListener mouseListener= new MouseListener() {
         @Override
@@ -29,6 +27,25 @@ public class Canvas extends JFrame implements ActionListener {
         public void mouseEntered(MouseEvent e) {}
         @Override
         public void mouseExited(MouseEvent e) {}
+    };
+
+    KeyListener keyListener = new KeyListener() {
+
+        @Override
+        public void keyTyped(KeyEvent e) {
+
+        }
+
+        @Override
+        public void keyPressed(KeyEvent e) {
+            System.out.println("elo" );
+        }
+
+        @Override
+        public void keyReleased(KeyEvent e) {
+            System.out.println("elo" );
+
+        }
     };
 
     ChangeListener changeListener = new ChangeListener() {
@@ -73,17 +90,16 @@ public class Canvas extends JFrame implements ActionListener {
         pCanva.addMouseListener(mouseListener);
 
 
-
-        rbCircle=new JRadioButton("Circle");
-        rbSquare=new JRadioButton("Square");
-        pButtons.add(rbCircle).setBounds(50,300,100,50);
-        pButtons.add(rbSquare).setBounds(50,350,100,50);
-        rbCircle.addActionListener(this);
-        rbSquare.addActionListener(this);
+        rbFill=new JRadioButton("Fill");
+        rbEmpty=new JRadioButton("Empty");
+        pButtons.add(rbFill).setBounds(50,300,100,50);
+        pButtons.add(rbEmpty).setBounds(50,350,100,50);
+        rbFill.addActionListener(this);
+        rbEmpty.addActionListener(this);
 
         ButtonGroup group= new ButtonGroup();
-        group.add(rbCircle);
-        group.add(rbSquare);
+        group.add(rbFill);
+        group.add(rbEmpty);
 
         sSize=new JSlider(0,0,100,5);
         sSize.setBounds(50,450,200,50);
@@ -100,6 +116,8 @@ public class Canvas extends JFrame implements ActionListener {
         bExit.setBounds(50,700,200,70);
         pButtons.add(bExit);
 
+        addKeyListener(this);
+
     }
 
     Color getColor() {return currentColor;}
@@ -107,13 +125,15 @@ public class Canvas extends JFrame implements ActionListener {
     void drawCenteredCircle(int x, int y, int r) {
         Graphics g = pCanva.getGraphics();
         g.setColor(getColor());
-        g.fillOval(x+r/2,y+r/2,r,r);
+        if(number==1) g.fillOval(x+r/2,y+r/2,r,r);
+        if(number==2) g.drawOval(x+r/2,y+r/2,r,r);
     }
 
     void drawCenteredSquare(int x, int y, int r){
         Graphics g = pCanva.getGraphics();
         g.setColor(getColor());
-        g.fillRect(x,y,r,r);
+        if(number==1) g.fillRect(x,y,r,r);
+        if(number==2) g.drawRect(x,y,r,r);
     }
 
     Color changingColor(){
@@ -123,8 +143,8 @@ public class Canvas extends JFrame implements ActionListener {
     }
 
     void drawFigure(int x, int y, int r){
-        if(number==1) drawCenteredCircle(x-r,y-r,r);
-        if(number==2) drawCenteredSquare(x-r/2,y-r/2,r);
+        if(figure=='c') drawCenteredCircle(x-r,y-r,r);
+        if(figure=='s') drawCenteredSquare(x-r/2,y-r/2,r);
     }
 
 
@@ -132,15 +152,15 @@ public class Canvas extends JFrame implements ActionListener {
     public void actionPerformed(ActionEvent e) {
         Object source = e.getSource();
 
-        xMouse =(int)MouseInfo.getPointerInfo().getLocation().getX();
-        yMouse =(int)MouseInfo.getPointerInfo().getLocation().getY();
+        //xMouse =(int)MouseInfo.getPointerInfo().getLocation().getX();
+        //yMouse =(int)MouseInfo.getPointerInfo().getLocation().getY();
 
         if(source==bChangeColor){
             lCurrentColor.setBackground(changingColor());
         }
 
-        if(source==rbCircle) number=1;
-        if(source==rbSquare) number=2;
+        if(source==rbFill) number=1;
+        if(source==rbEmpty) number=2;
 
         if(source==bClear){
             getContentPane().setBackground(new Color(160,200,100));
@@ -156,6 +176,30 @@ public class Canvas extends JFrame implements ActionListener {
 
         }
 
+        requestFocus();
     }
 
+    @Override
+    public void keyTyped(KeyEvent e) {
+
+
+    }
+
+    @Override
+    public void keyPressed(KeyEvent e) {
+
+    }
+
+    @Override
+    public void keyReleased(KeyEvent e) {
+        char source = e.getKeyChar();
+        if(source=='c'){
+            figure = 'c';
+            System.out.println("klikniete c");
+        }
+        if(source=='s'){
+            figure = 's';
+            System.out.println("klikniete s");
+        }
+    }
 }
