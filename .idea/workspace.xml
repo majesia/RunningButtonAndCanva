@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="d80f0fae-3be4-418a-acaf-9f8648d28307" name="Changes" comment="canva-naprawienie błędu rysowania figur poza polem">
+    <list default="true" id="d80f0fae-3be4-418a-acaf-9f8648d28307" name="Changes" comment="canva-dodanie keylistenera">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Canvas.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Canvas.java" afterDir="false" />
     </list>
@@ -59,7 +59,7 @@
       <workItem from="1672381017707" duration="2669000" />
       <workItem from="1672686070782" duration="7908000" />
       <workItem from="1672837602672" duration="2908000" />
-      <workItem from="1672871638075" duration="2595000" />
+      <workItem from="1672871638075" duration="6180000" />
     </task>
     <task id="LOCAL-00001" summary="dodanie metody ActionListener">
       <created>1671709179891</created>
@@ -131,7 +131,14 @@
       <option name="project" value="LOCAL" />
       <updated>1672694240933</updated>
     </task>
-    <option name="localTasksCounter" value="11" />
+    <task id="LOCAL-00011" summary="canva-dodanie keylistenera">
+      <created>1672874632156</created>
+      <option name="number" value="00011" />
+      <option name="presentableId" value="LOCAL-00011" />
+      <option name="project" value="LOCAL" />
+      <updated>1672874632156</updated>
+    </task>
+    <option name="localTasksCounter" value="12" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -159,6 +166,7 @@
     <MESSAGE value="dodanie możliwości wyboru rozmiaru kształtu" />
     <MESSAGE value="dodanie przycisku wyjścia i czyszczenia canvy" />
     <MESSAGE value="canva-naprawienie błędu rysowania figur poza polem" />
-    <option name="LAST_COMMIT_MESSAGE" value="canva-naprawienie błędu rysowania figur poza polem" />
+    <MESSAGE value="canva-dodanie keylistenera" />
+    <option name="LAST_COMMIT_MESSAGE" value="canva-dodanie keylistenera" />
   </component>
 </project>

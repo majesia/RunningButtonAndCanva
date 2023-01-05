@@ -4,49 +4,17 @@ import javax.swing.event.ChangeListener;
 import java.awt.*;
 import java.awt.event.*;
 
-public class Canvas extends JFrame implements ActionListener, KeyListener {
+public class Canvas extends JFrame implements ActionListener, KeyListener, MouseListener {
     JButton bChangeColor, lCurrentColor, bClear, bExit;
     JRadioButton rbFill,rbEmpty;
-    int xMouse,yMouse, size, number;
+    int xMouse,yMouse, size=50, number;
     JPanel  pCanva, pButtons;
+    JLabel tFigure1, tFigure2, tFigureName;
     Color currentColor;
     JSlider sSize;
     char figure = 'c';
+    Font font = new Font("Serif", Font.ITALIC, 15);
 
-    MouseListener mouseListener= new MouseListener() {
-        @Override
-        public void mouseClicked(MouseEvent e) {
-            drawFigure(e.getX(), e.getY(), size);
-        }
-
-        @Override
-        public void mousePressed(MouseEvent e) {}
-        @Override
-        public void mouseReleased(MouseEvent e) {}
-        @Override
-        public void mouseEntered(MouseEvent e) {}
-        @Override
-        public void mouseExited(MouseEvent e) {}
-    };
-
-    KeyListener keyListener = new KeyListener() {
-
-        @Override
-        public void keyTyped(KeyEvent e) {
-
-        }
-
-        @Override
-        public void keyPressed(KeyEvent e) {
-            System.out.println("elo" );
-        }
-
-        @Override
-        public void keyReleased(KeyEvent e) {
-            System.out.println("elo" );
-
-        }
-    };
 
     ChangeListener changeListener = new ChangeListener() {
         @Override
@@ -64,21 +32,24 @@ public class Canvas extends JFrame implements ActionListener, KeyListener {
     Canvas(){
         setSize(1600,900);
         setTitle("Canva");
+        setFont(font);
         setLayout(null);
         getContentPane().setBackground(new Color(160,200,100));
 
         pButtons= new JPanel();
         pButtons.setLayout(null);
-        pButtons.setBackground(Color.ORANGE);
+        pButtons.setBackground(new Color(53,85,68));
         pButtons.setBounds(0,0,299,900);
+        pButtons.setFont(font);
         add(pButtons);
         lCurrentColor = new JButton();
         lCurrentColor.setBounds(50,25,200,100);
         lCurrentColor.setText("Current color");
+        lCurrentColor.setFont(font);
         pButtons.add(lCurrentColor);
 
         bChangeColor = new JButton("Choose a new color");
-
+        bChangeColor.setFont(font);
         bChangeColor.setBounds(50,150,200,100);
         bChangeColor.addActionListener(this);
         pButtons.add(bChangeColor);
@@ -87,13 +58,15 @@ public class Canvas extends JFrame implements ActionListener, KeyListener {
         pCanva.setBounds(300,0,1300,900);
         pCanva.setBackground(Color.white);
         add(pCanva);
-        pCanva.addMouseListener(mouseListener);
+        pCanva.addMouseListener(this);
 
 
         rbFill=new JRadioButton("Fill");
         rbEmpty=new JRadioButton("Empty");
-        pButtons.add(rbFill).setBounds(50,300,100,50);
-        pButtons.add(rbEmpty).setBounds(50,350,100,50);
+        rbFill.setFont(font);
+        rbEmpty.setFont(font);
+        pButtons.add(rbFill).setBounds(50,300,80,50);
+        pButtons.add(rbEmpty).setBounds(50,350,80,50);
         rbFill.addActionListener(this);
         rbEmpty.addActionListener(this);
 
@@ -101,22 +74,50 @@ public class Canvas extends JFrame implements ActionListener, KeyListener {
         group.add(rbFill);
         group.add(rbEmpty);
 
-        sSize=new JSlider(0,0,100,5);
+        sSize=new JSlider(0,0,100,50);
+        sSize.setFont(font);
         sSize.setBounds(50,450,200,50);
+        sSize.setMajorTickSpacing(20);
+        sSize.setMinorTickSpacing(5);
+        sSize.setPaintTicks(true);
+        sSize.setPaintLabels(true);
         pButtons.add(sSize);
         sSize.addChangeListener(changeListener);
 
         bClear=new JButton("Clear the canva");
         bClear.setBounds(50,550,200,100);
         bClear.addActionListener(this);
+        bClear.setFont(font);
         pButtons.add(bClear);
 
         bExit=new JButton("Exit");
+        bExit.setFont(font);
         bExit.addActionListener(this);
         bExit.setBounds(50,700,200,70);
         pButtons.add(bExit);
 
+
         addKeyListener(this);
+
+        tFigure1 = new JLabel("Chosen figure:");
+        tFigure1.setFont(font);
+        tFigure1.setForeground(Color.WHITE);
+        tFigure1.setBounds(150,300,100,50);
+        pButtons.add(tFigure1);
+
+        tFigure2 = new JLabel("(click 'c' or 's' on keyboard)");
+        tFigure2.setFont(new Font("Serif", Font.ITALIC, 12));
+        tFigure2.setForeground(Color.WHITE);
+        tFigure2.setBounds(150,320,140,50);
+        pButtons.add(tFigure2);
+
+        tFigureName = new JLabel();
+        tFigureName.setForeground(Color.WHITE);
+        tFigureName.setFont(font);
+        tFigureName.setBounds(150,350,100,50);
+        tFigureName.setText("Circle");
+        pButtons.add(tFigureName);
+
 
     }
 
@@ -180,15 +181,10 @@ public class Canvas extends JFrame implements ActionListener, KeyListener {
     }
 
     @Override
-    public void keyTyped(KeyEvent e) {
-
-
-    }
+    public void keyTyped(KeyEvent e) {}
 
     @Override
-    public void keyPressed(KeyEvent e) {
-
-    }
+    public void keyPressed(KeyEvent e) {}
 
     @Override
     public void keyReleased(KeyEvent e) {
@@ -196,10 +192,26 @@ public class Canvas extends JFrame implements ActionListener, KeyListener {
         if(source=='c'){
             figure = 'c';
             System.out.println("klikniete c");
+            tFigureName.setText("Circle");
         }
         if(source=='s'){
             figure = 's';
             System.out.println("klikniete s");
+            tFigureName.setText("Square");
         }
     }
+
+    @Override
+    public void mouseClicked(MouseEvent e) {
+        drawFigure(e.getX(), e.getY(), size);
+    }
+
+    @Override
+    public void mousePressed(MouseEvent e) {}
+    @Override
+    public void mouseReleased(MouseEvent e) {}
+    @Override
+    public void mouseEntered(MouseEvent e) {}
+    @Override
+    public void mouseExited(MouseEvent e) {}
 }
