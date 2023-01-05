@@ -4,10 +4,16 @@ import javax.swing.event.ChangeListener;
 import java.awt.*;
 import java.awt.event.*;
 
+/**
+ * Klasa z kodem do rysowania kształtów na panelu, rozszerza klasę JFrame
+ * i implementuje klasy ActionListener, KeyListener i MouseListener
+ */
 public class Canvas extends JFrame implements ActionListener, KeyListener, MouseListener {
-    JButton bChangeColor, lCurrentColor, bClear, bExit;
+
+    // wypisanie wszystkich zmiennych
+    JButton bChangeColor, bCurrentColor, bClear, bExit;
     JRadioButton rbFill,rbEmpty;
-    int xMouse,yMouse, size=50, number;
+    int size=50, number;
     JPanel  pCanva, pButtons;
     JLabel tFigure1, tFigure2, tFigureName;
     Color currentColor;
@@ -28,39 +34,48 @@ public class Canvas extends JFrame implements ActionListener, KeyListener, Mouse
         }
     };
 
+    /**
+     * Canvas() - konstruktor tworzący okno z programem
+     */
 
     Canvas(){
+        //ustawianie głownego pola
         setSize(1600,900);
         setTitle("Canva");
         setFont(font);
         setLayout(null);
         getContentPane().setBackground(new Color(160,200,100));
 
+        //JPanel z menu
         pButtons= new JPanel();
         pButtons.setLayout(null);
         pButtons.setBackground(new Color(53,85,68));
         pButtons.setBounds(0,0,299,900);
         pButtons.setFont(font);
         add(pButtons);
-        lCurrentColor = new JButton();
-        lCurrentColor.setBounds(50,25,200,100);
-        lCurrentColor.setText("Current color");
-        lCurrentColor.setFont(font);
-        pButtons.add(lCurrentColor);
 
+        //aktualny kolor
+        bCurrentColor = new JButton();
+        bCurrentColor.setBounds(50,25,200,100);
+        bCurrentColor.setText("Current color");
+        bCurrentColor.setFont(font);
+        pButtons.add(bCurrentColor);
+
+        //przycisk ze zmiana koloru ksztaltu
         bChangeColor = new JButton("Choose a new color");
         bChangeColor.setFont(font);
         bChangeColor.setBounds(50,150,200,100);
         bChangeColor.addActionListener(this);
         pButtons.add(bChangeColor);
 
+        //JPanel z canva
         pCanva =new JPanel();
         pCanva.setBounds(300,0,1300,900);
         pCanva.setBackground(Color.white);
         add(pCanva);
         pCanva.addMouseListener(this);
 
-
+        // przyciski z wyborem kształtu wypełnionego bądź nie
         rbFill=new JRadioButton("Fill");
         rbEmpty=new JRadioButton("Empty");
         rbFill.setFont(font);
@@ -74,6 +89,7 @@ public class Canvas extends JFrame implements ActionListener, KeyListener, Mouse
         group.add(rbFill);
         group.add(rbEmpty);
 
+        //JSlider z rozmiarem kształtu
         sSize=new JSlider(0,0,100,50);
         sSize.setFont(font);
         sSize.setBounds(50,450,200,50);
@@ -84,12 +100,14 @@ public class Canvas extends JFrame implements ActionListener, KeyListener, Mouse
         pButtons.add(sSize);
         sSize.addChangeListener(changeListener);
 
+        //przycisk z czysczeniem canvy
         bClear=new JButton("Clear the canva");
         bClear.setBounds(50,550,200,100);
         bClear.addActionListener(this);
         bClear.setFont(font);
         pButtons.add(bClear);
 
+        //przycisk wyjścia
         bExit=new JButton("Exit");
         bExit.setFont(font);
         bExit.addActionListener(this);
@@ -99,6 +117,7 @@ public class Canvas extends JFrame implements ActionListener, KeyListener, Mouse
 
         addKeyListener(this);
 
+        //JLabele z wyborem kształtu
         tFigure1 = new JLabel("Chosen figure:");
         tFigure1.setFont(font);
         tFigure1.setForeground(Color.WHITE);
@@ -121,8 +140,18 @@ public class Canvas extends JFrame implements ActionListener, KeyListener, Mouse
 
     }
 
+    /**
+     * Metoda zwracająca aktualny kolor
+     * @return currentColor
+     */
     Color getColor() {return currentColor;}
 
+    /**
+     * Metoda rysująca koło
+     * @param x współrzędna x miejsca w którym koło ma być narysowane
+     * @param y współrzędna y miejsca w którym koło ma być narysowane
+     * @param r rozmiar kształtu
+     */
     void drawCenteredCircle(int x, int y, int r) {
         Graphics g = pCanva.getGraphics();
         g.setColor(getColor());
@@ -130,6 +159,12 @@ public class Canvas extends JFrame implements ActionListener, KeyListener, Mouse
         if(number==2) g.drawOval(x+r/2,y+r/2,r,r);
     }
 
+    /**
+     * Metoda rysująca kwadrat
+     * @param x współrzędna x miejsca w którym kwadrat ma być narysowany
+     * @param y współrzędna y miejsca w którym kwadrat ma być narysowany
+     * @param r rozmiar kształtu
+     */
     void drawCenteredSquare(int x, int y, int r){
         Graphics g = pCanva.getGraphics();
         g.setColor(getColor());
@@ -137,12 +172,22 @@ public class Canvas extends JFrame implements ActionListener, KeyListener, Mouse
         if(number==2) g.drawRect(x,y,r,r);
     }
 
+    /**
+     * Metoda zmieniająca aktualnie wybrany kolor
+     * @return nowy kolor
+     */
     Color changingColor(){
         JColorChooser colorChooser = new JColorChooser();
         currentColor = colorChooser.showDialog(null, "Pick a color...I guess", Color.black);
         return currentColor;
     }
 
+    /**
+     * Metoda wybierają, który kształt ma narysować przez sprawdzenie jaki kształt jest aktualnie wybrany
+     * @param x współrzędna x miejsca w którym kształt ma być narysowany
+     * @param y współrzędna y miejsca w którym kształt ma być narysowany
+     * @param r rozmiar kształtu
+     */
     void drawFigure(int x, int y, int r){
         if(figure=='c') drawCenteredCircle(x-r,y-r,r);
         if(figure=='s') drawCenteredSquare(x-r/2,y-r/2,r);
@@ -153,22 +198,21 @@ public class Canvas extends JFrame implements ActionListener, KeyListener, Mouse
     public void actionPerformed(ActionEvent e) {
         Object source = e.getSource();
 
-        //xMouse =(int)MouseInfo.getPointerInfo().getLocation().getX();
-        //yMouse =(int)MouseInfo.getPointerInfo().getLocation().getY();
-
         if(source==bChangeColor){
-            lCurrentColor.setBackground(changingColor());
+            bCurrentColor.setBackground(changingColor());
         }
 
         if(source==rbFill) number=1;
         if(source==rbEmpty) number=2;
 
+        //czyszczenie canvy
         if(source==bClear){
             getContentPane().setBackground(new Color(160,200,100));
             pCanva.getGraphics().clearRect(0,0,1300,900);
             pCanva.setBackground(Color.WHITE);
         }
 
+        //zamykanie okna canvy i otwieranie okna z wyborem gry
         if(source==bExit){
             dispose();
             FirstWindow window = new FirstWindow();
@@ -186,6 +230,11 @@ public class Canvas extends JFrame implements ActionListener, KeyListener, Mouse
     @Override
     public void keyPressed(KeyEvent e) {}
 
+    /**
+     * Wybór rodzaju kształtu z klawiatury poprzez kliknięcie klawisza
+     * z literą 'c' - wybór koła lub 's' - wybór kwadratu
+     * @param e the event to be processed
+     */
     @Override
     public void keyReleased(KeyEvent e) {
         char source = e.getKeyChar();
@@ -201,6 +250,10 @@ public class Canvas extends JFrame implements ActionListener, KeyListener, Mouse
         }
     }
 
+    /**
+     * Metoda uruchamiająca metedy do rysownia figury poprzez kliknięcie myszą
+     * @param e the event to be processed
+     */
     @Override
     public void mouseClicked(MouseEvent e) {
         drawFigure(e.getX(), e.getY(), size);
