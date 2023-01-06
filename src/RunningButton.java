@@ -5,8 +5,12 @@ import java.awt.event.ActionListener;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Klasa z uciekającym przyciskiem
+ */
 public class RunningButton extends JFrame implements ActionListener {
 
+    //zmienne
     JButton bStart, bExit, button,bEasy,bMedium,bHard;
     JLabel lWin,lLvl;
 
@@ -19,14 +23,19 @@ public class RunningButton extends JFrame implements ActionListener {
     static int firstXButton=windowWidth/2-widthbuttons/2, firstYButton=windowHeight/2-heightbuttons/2;
     int xMouse =(int)MouseInfo.getPointerInfo().getLocation().getX();
     int yMouse =(int)MouseInfo.getPointerInfo().getLocation().getY();
-    int easy=0,medium=1,hard=2;
     int lvlPosition;
+
+    /**
+     * konstruktor tworzący okno aplikacji
+     */
     RunningButton(){
+        //parametry okna
         setSize(windowWidth,windowHeight);
         setTitle("Running button");
         setLayout(null);
         getContentPane().setBackground(new Color(60,100,150));
 
+        //przycisk startu gry
         bStart = new JButton();
         bStart.setText("Start");
         bStart.setBounds(windowWidth/2-widthbuttons/2,windowHeight/3-heightbuttons/2,150,100);
@@ -36,6 +45,7 @@ public class RunningButton extends JFrame implements ActionListener {
         add(bStart);
         bStart.addActionListener(this);
 
+        //przycisk wyjscia z aplikacji
         bExit=new JButton("Exit");
         bExit.setBounds(windowWidth/2-widthbuttons/2,windowHeight*2/3-heightbuttons/2,150,100);
         bExit.setBackground(Color.GRAY);
@@ -44,12 +54,14 @@ public class RunningButton extends JFrame implements ActionListener {
         add(bExit);
         bExit.addActionListener(this);
 
+        //label z napisem w przypadku wygranej
         lWin= new JLabel("Congratulations, You catched a button!");
         lWin.setBounds(150,10,700,100);
         lWin.setFont(new Font("Dialog",Font.HANGING_BASELINE,28));
         lWin.setForeground(Color.MAGENTA);
         lWin.setBackground(new Color(14, 41, 24));
 
+        //przycisk z poziomem łatwym
         bEasy =new JButton("Easy");
         bEasy.setBounds(windowWidth/2-widthbuttons/2,windowHeight/4-heightbuttons/2,150,50);
         bEasy.setBackground(Color.GRAY);
@@ -57,6 +69,7 @@ public class RunningButton extends JFrame implements ActionListener {
         bEasy.setFont(new Font("Dialog",Font.HANGING_BASELINE,20));
         bEasy.addActionListener(this);
 
+        //przycisk z poziomem średnim
         bMedium =new JButton("Medium");
         bMedium.setBounds(windowWidth/2-widthbuttons/2,windowHeight/2-heightbuttons/2,150,50);
         bMedium.setBackground(Color.GRAY);
@@ -64,6 +77,7 @@ public class RunningButton extends JFrame implements ActionListener {
         bMedium.setFont(new Font("Dialog",Font.HANGING_BASELINE,20));
         bMedium.addActionListener(this);
 
+        //przycisk z poziomem trudnym
         bHard =new JButton("Hard");
         bHard.setBounds(windowWidth/2-widthbuttons/2,windowHeight*3/4-heightbuttons/2,150,50);
         bHard.setBackground(Color.GRAY);
@@ -71,16 +85,23 @@ public class RunningButton extends JFrame implements ActionListener {
         bHard.setFont(new Font("Dialog",Font.HANGING_BASELINE,20));
         bHard.addActionListener(this);
 
+        //label z napisem wyobru poziomu
         lLvl= new JLabel("Choose a difficulty level:");
-        lLvl.setBounds(150,10,700,100);
+        lLvl.setBounds(230,1,700,50);
         lLvl.setFont(new Font("Dialog",Font.HANGING_BASELINE,28));
         lLvl.setForeground(Color.MAGENTA);
-        //lLvl.setBackground(new Color(14, 41, 24));
     }
 
+    /**
+     * Metoda ustawiająca przycisk w początkowym położeniu
+     */
     void buttonStartSetting(){
         button.setBounds(firstXButton,firstYButton,widthbuttons,heightbuttons);
     }
+
+    /**
+     * Metoda ustawiająca elementy w aplikacji na takie z możliwością wyboru poziomu trudnośći
+     */
     void chooseLvl(){
 
         remove(lWin);
@@ -90,6 +111,10 @@ public class RunningButton extends JFrame implements ActionListener {
         add(bHard);
         setTitle("Choose level");
     }
+
+    /**
+     * Metoda usuwająca elementy na ekranie
+     */
     void removing(){
         remove(lLvl);
         remove(bEasy);
@@ -99,12 +124,14 @@ public class RunningButton extends JFrame implements ActionListener {
         getContentPane().setBackground(new Color(14, 41, 241));
     }
 
+    /**
+     * Metoda uruchamiająca właściwą grę z łapaniem przycisku
+     */
     void start(){
 
         setTitle("Catch me if you can");
 
         button=new JButton();
-       // button.setBounds(xbutton,ybutton,widthbuttons,heightbuttons);
         buttonStartSetting();
         button.setBackground(Color.CYAN);
         add(button);
@@ -112,6 +139,11 @@ public class RunningButton extends JFrame implements ActionListener {
 
 
     }
+
+    /**
+     * Metoda ustawiająca poziom trudności
+     * @param lvl wybrany poziom przez użytkownika
+     */
     void lvlIsChosen(Object lvl){
         if(lvl==bEasy) lvlPosition=120;
         if(lvl==bMedium) lvlPosition=80;
@@ -120,6 +152,11 @@ public class RunningButton extends JFrame implements ActionListener {
         removing();
         start();
     }
+
+    /**
+     * Metoda generująca losowe położenie przycisku
+     * @return ArrayList ze współrzędnymi przycisku
+     */
     List<Integer> setPosition(){
         List<Integer> xAndy = new ArrayList<>();
         xbutton=(int)(Math.random()*(windowWidth-widthbuttons));
@@ -131,11 +168,16 @@ public class RunningButton extends JFrame implements ActionListener {
         return xAndy;
     }
 
+    /**
+     * Metoda sprawdzająca czy przycisk został złapany
+     * @param xbutton współrzędna x przycisku
+     * @param ybutton współrzędna y przycisku
+     * @return boolean z odpowiedzią czy przycisk jest złapany
+     */
     Boolean isButtonCatch(int xbutton, int ybutton){
         boolean yesOrNo;
         xMouse =(int)MouseInfo.getPointerInfo().getLocation().getX();
         yMouse =(int)MouseInfo.getPointerInfo().getLocation().getY();
-        //System.out.println(xmouse+" "+ymouse);
 
         int minRightX = xbutton;
         int maxRightX = xbutton +lvlPosition;
@@ -151,6 +193,9 @@ public class RunningButton extends JFrame implements ActionListener {
         return yesOrNo;
     }
 
+    /**
+     * Metoda ustawiająca parametry aplikacji po wygranej
+     */
     void win(){
         remove(button);
         getContentPane().setBackground(new Color(14, 41, 24));

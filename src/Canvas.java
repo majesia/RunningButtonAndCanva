@@ -35,7 +35,7 @@ public class Canvas extends JFrame implements ActionListener, KeyListener, Mouse
     };
 
     /**
-     * Canvas() - konstruktor tworzący okno z programem
+     * konstruktor tworzący okno z programem
      */
 
     Canvas(){

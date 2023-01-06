@@ -3,6 +3,9 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
+/**
+ * Klasa z oknem wyboru gry
+ */
 public class FirstWindow extends JFrame implements ActionListener {
     JButton bCanva, bRunningButton;
     public FirstWindow(){
