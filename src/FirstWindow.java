@@ -9,21 +9,22 @@ import java.awt.event.ActionListener;
 public class FirstWindow extends JFrame implements ActionListener {
     JButton bCanva, bRunningButton;
     public FirstWindow(){
-        setSize(800,300);
+
+        setSize(415,435);
         setTitle("Running button / Canva");
         setLayout(null);
         getContentPane().setBackground(new Color(160,100,100));
 
         bCanva = new JButton("Canva");
-        bCanva.setBounds(0,0,400,300);
-        bCanva.setBackground(new Color(100,50,40));
+        bCanva.setBounds(0,0,200,200);
+        bCanva.setBackground(new Color(250,0,90));
         bCanva.setFont(new Font("Dialog",Font.HANGING_BASELINE,20));
         add(bCanva);
         bCanva.addActionListener(this);
 
         bRunningButton = new JButton("Running button");
-        bRunningButton.setBounds(400,0,400,300);
-        bRunningButton.setBackground(new Color(50,100,70));
+        bRunningButton.setBounds(200,200,200,200);
+        bRunningButton.setBackground(new Color(250,0,90));
         bRunningButton.setFont(new Font("Dialog",Font.HANGING_BASELINE,20));
         add(bRunningButton);
         bRunningButton.addActionListener(this);
@@ -31,6 +32,9 @@ public class FirstWindow extends JFrame implements ActionListener {
 
 
 
+    }
+
+    private void setBounds(int outTop) {
     }
 
     @Override

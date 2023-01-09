@@ -3,6 +3,7 @@ import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
 import java.awt.*;
 import java.awt.event.*;
+import java.io.IOException;
 
 /**
  * Klasa z kodem do rysowania kształtów na panelu, rozszerza klasę JFrame
@@ -19,7 +20,9 @@ public class Canvas extends JFrame implements ActionListener, KeyListener, Mouse
     Color currentColor;
     JSlider sSize;
     char figure = 'c';
-    Font font = new Font("Serif", Font.ITALIC, 15);
+    Font font = new Font("Serif", Font.BOLD, 16);
+
+    Color back = new Color(150,110,100);
 
 
     ChangeListener changeListener = new ChangeListener() {
@@ -45,7 +48,7 @@ public class Canvas extends JFrame implements ActionListener, KeyListener, Mouse
         setFont(font);
         setLayout(null);
         getContentPane().setBackground(new Color(160,200,100));
-
+        font = new Font("Dialog",Font.HANGING_BASELINE,16);
         //JPanel z menu
         pButtons= new JPanel();
         pButtons.setLayout(null);
@@ -59,6 +62,7 @@ public class Canvas extends JFrame implements ActionListener, KeyListener, Mouse
         bCurrentColor.setBounds(50,25,200,100);
         bCurrentColor.setText("Current color");
         bCurrentColor.setFont(font);
+        bCurrentColor.setBackground(Color.black);
         pButtons.add(bCurrentColor);
 
         //przycisk ze zmiana koloru ksztaltu
@@ -66,6 +70,7 @@ public class Canvas extends JFrame implements ActionListener, KeyListener, Mouse
         bChangeColor.setFont(font);
         bChangeColor.setBounds(50,150,200,100);
         bChangeColor.addActionListener(this);
+        bChangeColor.setBackground(back);
         pButtons.add(bChangeColor);
 
         //JPanel z canva
@@ -80,6 +85,8 @@ public class Canvas extends JFrame implements ActionListener, KeyListener, Mouse
         rbEmpty=new JRadioButton("Empty");
         rbFill.setFont(font);
         rbEmpty.setFont(font);
+        rbEmpty.setBackground(new Color(53,85,68));
+        rbFill.setBackground(new Color(53,85,68));
         pButtons.add(rbFill).setBounds(50,300,80,50);
         pButtons.add(rbEmpty).setBounds(50,350,80,50);
         rbFill.addActionListener(this);
@@ -97,6 +104,7 @@ public class Canvas extends JFrame implements ActionListener, KeyListener, Mouse
         sSize.setMinorTickSpacing(5);
         sSize.setPaintTicks(true);
         sSize.setPaintLabels(true);
+        sSize.setBackground(back);
         pButtons.add(sSize);
         sSize.addChangeListener(changeListener);
 
@@ -105,6 +113,7 @@ public class Canvas extends JFrame implements ActionListener, KeyListener, Mouse
         bClear.setBounds(50,550,200,100);
         bClear.addActionListener(this);
         bClear.setFont(font);
+        bClear.setBackground(back);
         pButtons.add(bClear);
 
         //przycisk wyjścia
@@ -112,6 +121,7 @@ public class Canvas extends JFrame implements ActionListener, KeyListener, Mouse
         bExit.setFont(font);
         bExit.addActionListener(this);
         bExit.setBounds(50,700,200,70);
+        bExit.setBackground(back);
         pButtons.add(bExit);
 
 
@@ -119,20 +129,20 @@ public class Canvas extends JFrame implements ActionListener, KeyListener, Mouse
 
         //JLabele z wyborem kształtu
         tFigure1 = new JLabel("Chosen figure:");
-        tFigure1.setFont(font);
-        tFigure1.setForeground(Color.WHITE);
+        tFigure1.setFont(new Font("Serif", Font.BOLD, 14));
+        //tFigure1.setForeground(Color.BLACK);
         tFigure1.setBounds(150,300,100,50);
         pButtons.add(tFigure1);
 
         tFigure2 = new JLabel("(click 'c' or 's' on keyboard)");
-        tFigure2.setFont(new Font("Serif", Font.ITALIC, 12));
-        tFigure2.setForeground(Color.WHITE);
+        tFigure2.setFont(new Font("Serif", Font.BOLD, 10));
+        //tFigure2.setForeground(Color.BLACK);
         tFigure2.setBounds(150,320,140,50);
         pButtons.add(tFigure2);
 
         tFigureName = new JLabel();
-        tFigureName.setForeground(Color.WHITE);
-        tFigureName.setFont(font);
+        tFigureName.setForeground(Color.BLACK);
+        tFigureName.setFont(new Font("Serif", Font.BOLD, 16));
         tFigureName.setBounds(150,350,100,50);
         tFigureName.setText("Circle");
         pButtons.add(tFigureName);
@@ -209,13 +219,14 @@ public class Canvas extends JFrame implements ActionListener, KeyListener, Mouse
         if(source==bClear){
             getContentPane().setBackground(new Color(160,200,100));
             pCanva.getGraphics().clearRect(0,0,1300,900);
-            pCanva.setBackground(Color.WHITE);
+            pCanva.setBackground(Color.white);
         }
 
         //zamykanie okna canvy i otwieranie okna z wyborem gry
         if(source==bExit){
             dispose();
-            FirstWindow window = new FirstWindow();
+            FirstWindow window = null;
+            window = new FirstWindow();
             window.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
             window.setVisible(true);
 

@@ -2,6 +2,7 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -14,8 +15,8 @@ public class RunningButton extends JFrame implements ActionListener {
     JButton bStart, bExit, button,bEasy,bMedium,bHard;
     JLabel lWin,lLvl;
 
-    static int windowWidth=800;
-    static int windowHeight=500;
+    static int windowWidth=824;
+    static int windowHeight=570;
     static int widthbuttons = 150;
     static int heightbuttons=100;
     int xbutton=windowWidth/2-widthbuttons/2, ybutton=windowHeight/2-heightbuttons/2;
@@ -24,6 +25,9 @@ public class RunningButton extends JFrame implements ActionListener {
     int xMouse =(int)MouseInfo.getPointerInfo().getLocation().getX();
     int yMouse =(int)MouseInfo.getPointerInfo().getLocation().getY();
     int lvlPosition;
+    Color blue = new Color(50,150,200);
+    Color darkBlue= new Color(60,100,150);
+    JFrame info= new JFrame("Congratulations!"); ;
 
     /**
      * konstruktor tworzący okno aplikacji
@@ -33,55 +37,49 @@ public class RunningButton extends JFrame implements ActionListener {
         setSize(windowWidth,windowHeight);
         setTitle("Running button");
         setLayout(null);
-        getContentPane().setBackground(new Color(60,100,150));
+        getContentPane().setBackground(darkBlue);
 
         //przycisk startu gry
         bStart = new JButton();
         bStart.setText("Start");
-        bStart.setBounds(windowWidth/2-widthbuttons/2,windowHeight/3-heightbuttons/2,150,100);
-        bStart.setBackground(Color.GRAY);
-        bStart.setForeground(Color.MAGENTA);
-        bStart.setFont(new Font("Dialog",Font.HANGING_BASELINE,20));
+        bStart.setBounds(0,0,windowWidth/2,windowHeight/2);
+        bStart.setBackground(blue);
+        bStart.setFont(new Font("Dialog",Font.HANGING_BASELINE,30));
         add(bStart);
         bStart.addActionListener(this);
 
         //przycisk wyjscia z aplikacji
         bExit=new JButton("Exit");
-        bExit.setBounds(windowWidth/2-widthbuttons/2,windowHeight*2/3-heightbuttons/2,150,100);
-        bExit.setBackground(Color.GRAY);
-        bExit.setForeground(Color.MAGENTA);
-        bExit.setFont(new Font("Dialog",Font.HANGING_BASELINE,20));
+        bExit.setBounds(windowWidth/2,windowHeight/2,windowWidth/2,windowHeight/2);
+        bExit.setBackground(blue);
+        bExit.setFont(new Font("Dialog",Font.HANGING_BASELINE,30));
         add(bExit);
         bExit.addActionListener(this);
 
         //label z napisem w przypadku wygranej
-        lWin= new JLabel("Congratulations, You catched a button!");
-        lWin.setBounds(150,10,700,100);
-        lWin.setFont(new Font("Dialog",Font.HANGING_BASELINE,28));
-        lWin.setForeground(Color.MAGENTA);
-        lWin.setBackground(new Color(14, 41, 24));
+
 
         //przycisk z poziomem łatwym
         bEasy =new JButton("Easy");
         bEasy.setBounds(windowWidth/2-widthbuttons/2,windowHeight/4-heightbuttons/2,150,50);
-        bEasy.setBackground(Color.GRAY);
-        bEasy.setForeground(Color.MAGENTA);
+        bEasy.setBackground(blue);
+        //bEasy.setForeground(Color.MAGENTA);
         bEasy.setFont(new Font("Dialog",Font.HANGING_BASELINE,20));
         bEasy.addActionListener(this);
 
         //przycisk z poziomem średnim
         bMedium =new JButton("Medium");
         bMedium.setBounds(windowWidth/2-widthbuttons/2,windowHeight/2-heightbuttons/2,150,50);
-        bMedium.setBackground(Color.GRAY);
-        bMedium.setForeground(Color.MAGENTA);
+        bMedium.setBackground(blue);
+        //bMedium.setForeground(Color.MAGENTA);
         bMedium.setFont(new Font("Dialog",Font.HANGING_BASELINE,20));
         bMedium.addActionListener(this);
 
         //przycisk z poziomem trudnym
         bHard =new JButton("Hard");
         bHard.setBounds(windowWidth/2-widthbuttons/2,windowHeight*3/4-heightbuttons/2,150,50);
-        bHard.setBackground(Color.GRAY);
-        bHard.setForeground(Color.MAGENTA);
+        bHard.setBackground(blue);
+        //bHard.setForeground(Color.MAGENTA);
         bHard.setFont(new Font("Dialog",Font.HANGING_BASELINE,20));
         bHard.addActionListener(this);
 
@@ -89,7 +87,8 @@ public class RunningButton extends JFrame implements ActionListener {
         lLvl= new JLabel("Choose a difficulty level:");
         lLvl.setBounds(230,1,700,50);
         lLvl.setFont(new Font("Dialog",Font.HANGING_BASELINE,28));
-        lLvl.setForeground(Color.MAGENTA);
+        //lLvl.setForeground(Color.);
+
     }
 
     /**
@@ -104,7 +103,7 @@ public class RunningButton extends JFrame implements ActionListener {
      */
     void chooseLvl(){
 
-        remove(lWin);
+        //remove(lWin);
         add(lLvl);
         add(bEasy);
         add(bMedium);
@@ -120,8 +119,8 @@ public class RunningButton extends JFrame implements ActionListener {
         remove(bEasy);
         remove(bHard);
         remove(bMedium);
-        remove(lWin);
-        getContentPane().setBackground(new Color(14, 41, 241));
+        //remove(lWin);
+        getContentPane().setBackground(new Color(61,100,150));
     }
 
     /**
@@ -129,9 +128,7 @@ public class RunningButton extends JFrame implements ActionListener {
      */
     void start(){
 
-        setTitle("Catch me if you can");
-
-        button=new JButton();
+        button=new JButton("Catch me if you can");
         buttonStartSetting();
         button.setBackground(Color.CYAN);
         add(button);
@@ -197,12 +194,34 @@ public class RunningButton extends JFrame implements ActionListener {
      * Metoda ustawiająca parametry aplikacji po wygranej
      */
     void win(){
+
+
         remove(button);
-        getContentPane().setBackground(new Color(14, 41, 24));
+        getContentPane().setBackground(new Color(60,100,151));
         bStart.setText("Try again");
         add(bStart);
         add(bExit);
-        add(lWin);
+        //add(lWin);
+        congrtulations();
+
+    }
+
+    void congrtulations(){
+
+        //info= new JFrame("Congratulations!");
+        info.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+        info.setVisible(true);
+        info.setSize(350,100);
+        info.setBackground(new Color(14, 41, 24));
+
+        lWin= new JLabel("Congratulations, You catched a button!");
+        lWin.setBounds(100,0,350,100);
+        lWin.setBackground(new Color(14, 41, 24));
+        lWin.setFont(new Font("Dialog",Font.HANGING_BASELINE,15));
+        lWin.setForeground(Color.BLACK);
+
+
+        info.add(lWin);
     }
 
 
@@ -217,12 +236,15 @@ public class RunningButton extends JFrame implements ActionListener {
         if(source==bStart){
             remove(bStart);
             remove(bExit);
-            getContentPane().setBackground(new Color(154, 241, 241));
+            getContentPane().setBackground(new Color(61,100,151));
             chooseLvl();
+            info.dispose();
         }
         if(source==bExit){
+            info.dispose();
             dispose();
-            FirstWindow window = new FirstWindow();
+            FirstWindow window = null;
+            window = new FirstWindow();
             window.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
             window.setVisible(true);
         }
